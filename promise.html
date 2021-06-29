@@ -1,0 +1,67 @@
+<HTML>
+
+<head>
+<script>
+var canvas,ctx;
+const display="iPhoneXR_Display.jpg",skin="iPhoneXR_Skin.png";
+
+function case1()
+{
+  
+  ctx.drawImage(this,216,37,321,696);
+}
+function case2()//772*722
+{
+  ctx.drawImage(this, 0, 0,772,772);
+}
+function init()
+{
+const image = new Image(180, 320);
+canvas = document.getElementById('canvas');
+ ctx = canvas.getContext('2d');
+ canvas.width = 1000;
+  canvas.height = 1000;
+  let Imagepromise = new Promise(function(resolve,reject){
+  image.id="display";
+  image.onload= case1;
+  let display1 = document.querySelector("#display");
+	if(display1){
+        display1.addEventListener('load', (event) => {
+            console.log('display has been loaded!');
+			console.log( image.src)
+			resolve(100);
+        });
+		}
+  image.src = display;
+     
+  //console.log(image.onload)
+  if(image.complete){
+  console.log( image.src)
+  resolve(100);
+  }
+  });
+  Imagepromise.then(
+  function(value){
+	const image1 = new Image(180, 320);
+	image1.onload= case2;
+	image1.src = skin;
+  },
+  function(error){
+  console.log("error in loading skin"+error)
+  }
+  );
+  
+  
+}
+
+
+</script
+</head>
+
+<body onload="init();">
+
+<canvas id="canvas"></canvas>
+
+</body
+
+</HTML>
